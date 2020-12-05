@@ -1,5 +1,6 @@
 import sys
 import pprint as pp
+import functools as ft
 
 required = {*'byr iyr eyr hgt hcl ecl pid'.split()}
 
@@ -18,18 +19,22 @@ def parse():
     if pport:
         yield pport
 
-
-def valid(pport):
+def has_keys(pport):
     for k in required:
         if k not in pport:
             return False
+    return True
+
+def valid(pport):
+    if not has_keys(pport):
+        return False
 
     hgt = pport['hgt']
     hcl = pport['hcl']
     ecl = pport['ecl']
     pid = pport['pid']
 
-    if not all([
+    return all([
         1920 <= int(pport['byr']) <= 2002,
         2010 <= int(pport['iyr']) <= 2020,
         2020 <= int(pport['eyr']) <= 2030,
@@ -38,13 +43,6 @@ def valid(pport):
         hcl.startswith('#') and all('0' <= c <= '9' or 'a' <= c <= 'f'for c in hcl[1:]),
         ecl in 'amb blu brn gry grn hzl oth'.split(),
         len(pid) == 9 and all('0' <= c <= '9' for c in pid)
-    ]):
-        return False
+    ])
 
-
-    return True
-
-for i, p in enumerate(parse()):
-    print(i, int(valid(p)))
-#pp.pprint([*parse()])
-#print(sum(map(int, map(valid, parse()))))
+print(ft.reduce(lambda s, p: (s[0] + int(has_keys(p)), s[1] + int(valid(p))), parse(), (0,0)))
