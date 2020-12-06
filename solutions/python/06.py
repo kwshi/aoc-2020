@@ -14,11 +14,11 @@ def parse():
             yield answers
             answers = []
             continue
-        answers.append(line)
+        answers.append({*line})
 
-def p1():
-    for group in parse():
-        yield len(ft.reduce(lambda a, b: a & b, map(set, group)))
+combine = lambda f, groups: sum(map(len, it.starmap(f, groups)))
 
-print(sum(p1()))
+groups = [*parse()]
+print(combine(set.union, groups))
+print(combine(set.intersection, groups))
         
