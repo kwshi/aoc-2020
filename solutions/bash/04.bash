@@ -34,17 +34,12 @@ function keys_valid {
 v1=0
 v2=0
 
-i=0
-
 while read -ra line
 do
   if [[ ${#line[@]} -eq 0 ]] 
   then
-    # shellcheck disable=SC2015
-    keys_exist && (( ++v1 )) || true
-
-    # shellcheck disable=SC2015
-    keys_exist && keys_valid && (( ++v2 )) || true
+    keys_exist && (( ++v1 )) && true
+    keys_exist && keys_valid && (( ++v2 )) && true
 
     unset doc
     declare -A doc
