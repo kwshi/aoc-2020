@@ -1,7 +1,5 @@
 IN: 06
-USING: 
-  io kernel arrays sets sequences
-  splitting prettyprint ;
+USING: io kernel sets sequences splitting prettyprint ;
 
 lines [ empty? ] trim-slice { "" } split
 [ combine ] [ intersection ] 
