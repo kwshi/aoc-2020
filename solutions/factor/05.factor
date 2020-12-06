@@ -1,8 +1,8 @@
 IN: 05
 USING: 
-  arrays math math.order math.ranges
-  io prettyprint kernel sequences
-  locals ;
+  io kernel prettyprint arrays sequences
+  math math.order math.ranges math.parser
+  pair-rocket splitting ;
 
 : mid ( i j -- k )
   + -1 shift ;
@@ -18,6 +18,10 @@ USING:
   [ [ CHAR: R = ] map bisect ] 
   bi* + ;
 
+: id-trick ( s -- i )
+  { "F" => "0" "B" => "1" "L" => "0" "R" => "1" }
+  [ first2 replace ] each bin> ;
+
 : p1 ( ids -- max ) 
   0 [ max ] reduce ;
 
@@ -28,4 +32,4 @@ USING:
   [ [ 1 + ] [ 1 - ] [ ] tri reach tri@ not and and 
   ] find 2nip ;
 
-lines [ id ] map [ p1 . ] [ p2 . ] bi
+lines [ id-trick ] map [ p1 . ] [ drop ] bi
