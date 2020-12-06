@@ -17,13 +17,16 @@ def seat_id(bpass):
     seat = bisect([c == 'R' for c in bpass[7:]])
     return row * 8 + seat
 
+def seat_id_trick(bpass):
+    return int(bpass.replace('F', '0').replace('B', '1').replace('L', '0').replace('R', '1'), 2)
+
 lines = [line.strip() for line in sys.stdin]
 
-print(max(map(seat_id, lines)))
+print(max(map(seat_id_trick, lines)))
 
 filled = [False] * (1<<10)
 
-for i in map(seat_id, lines):
+for i in map(seat_id_trick, lines):
     filled[i] = True
 
 for k in range(1, len(filled)-2):
