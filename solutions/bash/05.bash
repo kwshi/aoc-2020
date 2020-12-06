@@ -17,10 +17,5 @@ done
 echo "$max"
 
 for (( i = min; i <= max; ++i )) 
-do
-  if [[ -z ${filled[i]+_} ]]
-  then 
-    echo "$i"
-    break
-  fi
+do [[ -z ${filled[i]+_} ]] && echo "$i" && break
 done
