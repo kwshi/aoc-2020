@@ -17,28 +17,43 @@ while read -r line; do
   )
 done
 
-stack=("$src")
-declare -A seen=([$src]='')
-while [[ ${#stack[@]} -ne 0 ]]; do
-  i=$((${#stack[@]} - 1))
-  part=${stack[$i]}
-  unset "stack[$i]"
-
-  if [[ ! -v rdeps[$part] ]]; then continue; fi
+declare -A seen
+function explore {
+  if [[ ! -v rdeps[$1] ]]; then return; fi
   while read -r ctr; do
-    if [[ -v seen[$ctr] ]]; then continue; fi
     seen[$ctr]=''
-    stack[${#stack[@]}]=$ctr
-  done <<< "${rdeps[$part]//,/$'\n'}"
-done
-echo "$((${#seen[@]} - 1))"
+    explore "$ctr"
+  done <<< "${rdeps[$1]//,/$'\n'}"
+}
+explore "$src"
+echo "${#seen[@]}"
 
 function count {
-  local ctr=$1 total=0
-  if [[ ! -v deps[$ctr] ]]; then echo 0; return; fi
+  local total=0
+  if [[ ! -v deps[$1] ]]; then echo 0; return; fi
   while IFS=':' read -r part n; do
     (( total += n * (1 + $(count "$part")) )) || true
-  done <<< "${deps[$ctr]//','/$'\n'}"
+  done <<< "${deps[$1]//','/$'\n'}"
   echo "$total"
 }
 count "$src"
+
+# original, stack-based DFS implementation
+
+#stack=("$src")
+#declare -A seen=([$src]='')
+#while [[ ${#stack[@]} -ne 0 ]]; do
+#  i=$((${#stack[@]} - 1))
+#  part=${stack[$i]}
+#  unset "stack[$i]"
+#
+#  if [[ ! -v rdeps[$part] ]]; then continue; fi
+#  while read -r ctr; do
+#    if [[ -v seen[$ctr] ]]; then continue; fi
+#    seen[$ctr]=''
+#    stack[${#stack[@]}]=$ctr
+#  done <<< "${rdeps[$part]//,/$'\n'}"
+#done
+#echo "$((${#seen[@]} - 1))"
+
+
