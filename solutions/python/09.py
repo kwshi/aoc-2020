@@ -24,7 +24,7 @@ def find(nums, n):
         if acc < n:
             acc += nums[j]
             j += 1
-        else acc > n:
+        else:
             acc -= nums[i]
             i += 1
     
