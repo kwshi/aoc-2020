@@ -20,17 +20,13 @@ def bad(nums, pre):
 
 def find(nums, n):
     acc = i = j = 0
-    while (acc != n or i + 1 == j) and j < len(nums):
+    while acc != n or i + 1 == j:
         if acc < n:
             acc += nums[j]
             j += 1
-        elif acc > n:
+        else acc > n:
             acc -= nums[i]
             i += 1
-        else: 
-            # single-entry sum
-            i += 1
-            j += 1
     
     return i, j
 
