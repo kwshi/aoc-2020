@@ -29,9 +29,9 @@ echo "$bad"
 i=0 j=0 acc=0
 while (( j + 1 == i || acc != bad )); do
   if (( acc < bad )); then 
-    (( acc += nums[$i] )) || true; (( ++i ));
+    (( acc += nums[i] )) || true; (( ++i ));
   else
-    (( acc -= nums[$j] )) || true; (( ++j ));
+    (( acc -= nums[j] )) || true; (( ++j ));
   fi
 done
 
