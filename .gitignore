@@ -1,2 +1,4 @@
 _build
 .merlin
+.nvimlog
+__pycache__
