@@ -3,8 +3,6 @@ import collections as co
 import itertools as it
 import pprint as pp
 import operator as op
-import numpy as np
-import scipy as sp
 import sys
 import math
 
