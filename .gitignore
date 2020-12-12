@@ -2,3 +2,6 @@ _build
 .merlin
 .nvimlog
 __pycache__
+a.out
+*.hi
+*.o
