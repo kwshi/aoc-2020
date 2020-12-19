@@ -1,4 +1,13 @@
-(executable (public_name day18) (libraries containers angstrom))
+(executable 
+  (public_name day18) 
+  (modules day18 parser lexer)
+  (libraries containers))
+
+(executable 
+  (public_name day18-angstrom) 
+  (name day18_angstrom)
+  (modules day18_angstrom)
+  (libraries containers angstrom))
 
 (ocamllex lexer)
 (menhir (modules parser))
