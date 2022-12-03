@@ -1,0 +1,4 @@
+(executable (public_name day19) (libraries containers))
+
+(ocamllex lexer)
+(menhir (modules parser))

@@ -1,3 +1,6 @@
-(env (_ (flags -open Containers)))
+(env (_ (flags -open Containers -open Fun.Infix)))
 
 (executable (public_name 01) (modules 01) (libraries containers))
+(executable (public_name 10) (modules 10) (libraries containers))
+
+(executable (public_name 11) (modules 11) (libraries containers angstrom))

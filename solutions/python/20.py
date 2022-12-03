@@ -240,5 +240,5 @@ for name, o in orientations.items():
             if ok: 
                 monsters[name] |= maybe
                 ns[name] += 1
-
+print(len([*monsters.values()][0]))
 print(''.join(big).count('#') - len([*monsters.values()][0]))

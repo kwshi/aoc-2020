@@ -28,6 +28,7 @@ for line in lines:
 allowed = {a: set.intersection(*ings) for a, ings in options.items()}
 free = ingredients - set.union(*allowed.values())
 
+print('\n'.join(f'{i} {a}' for a, ings in allowed.items() for i in ings))
 print(sum(int(f in ings) for f in free for ings, _ in entries))
 
 graph = co.defaultdict(set)
